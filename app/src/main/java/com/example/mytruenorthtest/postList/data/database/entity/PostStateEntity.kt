@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 
 data class PostStateEntity(
     @ColumnInfo(name = "title")
-    val title: String?,
+    val title: String,
 
     @ColumnInfo(name = "new")
-    val new: Boolean?
+    val new: Boolean
 )

@@ -3,6 +3,7 @@ package com.example.mytruenorthtest.postList.data
 import com.example.mytruenorthtest.common.exception.NoDataRecivedException
 import com.example.mytruenorthtest.postList.data.database.entity.PageEntity
 import com.example.mytruenorthtest.postList.data.database.entity.PostEntity
+import com.example.mytruenorthtest.postList.data.database.entity.PostStateEntity
 import com.example.mytruenorthtest.postList.data.database.entity.TopEntity
 import com.example.mytruenorthtest.postList.data.remote.dto.PageResponse
 import com.example.mytruenorthtest.postList.data.remote.dto.PostResponse
@@ -52,4 +53,10 @@ fun PostEntity.mapToDomain(): Post =
         thumbnail = thumbnail ?: throw NoDataRecivedException(),
         numberComments = numberComments ?: throw NoDataRecivedException(),
         new = true
+    )
+
+fun Post.mapToStateEntity(): PostStateEntity =
+    PostStateEntity(
+        title = title,
+        new = new
     )

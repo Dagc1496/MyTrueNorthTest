@@ -4,6 +4,6 @@ import com.example.mytruenorthtest.postList.domain.model.Post
 
 interface IPostRepository {
 
-    fun updatePostState(post: Post)
+    suspend fun updatePostState(post: Post)
 
 }
