@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTrueNorthTest">
         <activity
-            android:name=".MainActivity"
+            android:name=".postList.presentation.ui.activity.TopPostActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
