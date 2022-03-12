@@ -18,4 +18,7 @@ interface TopDao {
 
     @Update(entity = PostStateEntity::class)
     suspend fun updatePostState(postWithStateChange: PostStateEntity)
+
+    @Query("DELETE FROM top_table")
+    fun deleteAll()
 }

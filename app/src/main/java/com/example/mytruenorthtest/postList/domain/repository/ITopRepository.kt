@@ -4,8 +4,10 @@ import com.example.mytruenorthtest.postList.domain.model.Top
 
 interface ITopRepository {
 
-    fun fetchTop() : Top
+    suspend fun fetchTop() : Top
 
-    fun fetchTopNextPage(after: String) : Top
+    suspend fun fetchTopNextPage(after: String) : Top
+
+    suspend fun refreshTop(): Top
 
 }

@@ -18,8 +18,5 @@ data class PostEntity(
     val thumbnail: String?,
 
     @ColumnInfo(name = "num_comments")
-    val numberComments: Int?,
-
-    @ColumnInfo(name = "new")
-    val new: Boolean?
+    val numberComments: Int?
 )

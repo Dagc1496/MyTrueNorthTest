@@ -5,10 +5,10 @@ import androidx.room.Embedded
 
 data class PageEntity(
     @ColumnInfo(name = "after_post")
-    var after: String = "",
+    var after: String? = "",
 
     @ColumnInfo(name = "before_post")
-    var before: String = "",
+    var before: String? = "",
 
     @Embedded
     val post: PostEntity
