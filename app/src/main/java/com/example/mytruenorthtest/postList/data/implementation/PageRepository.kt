@@ -21,7 +21,7 @@ class PageRepository @Inject constructor(
 ) : IPageRepository {
 
     override suspend fun fetchTopPage(after: String?) : Page {
-        val response: TopResponse = apiClient.fetchTop()
+        val response: TopResponse = apiClient.fetchTopNextPage(after)
         val pageEntity:PageEntity = response.top?.mapToEntity() ?: throw NoDataRecivedException()
         val postEntities:List<PostEntity> = proccessPostResponse(response.top.postList)
         pageDao.insertPage(pageEntity)

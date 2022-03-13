@@ -16,11 +16,11 @@ fun PageResponse.mapToEntity(): PageEntity =
 
 fun PostResponse.mapToEntity(): PostEntity =
     PostEntity(
-        title = title ?: throw NoDataRecivedException(),
-        author = author ?: throw NoDataRecivedException(),
-        created = created ?: throw NoDataRecivedException(),
-        thumbnail = thumbnail ?: throw NoDataRecivedException(),
-        numberComments = numberComments ?: throw NoDataRecivedException(),
+        title = postInformation?.title ?: throw NoDataRecivedException(),
+        author = postInformation.author ?: throw NoDataRecivedException(),
+        created = postInformation.created ?: throw NoDataRecivedException(),
+        thumbnail = postInformation.thumbnail ?: throw NoDataRecivedException(),
+        numberComments = postInformation.numberComments ?: throw NoDataRecivedException(),
         new = true
     )
 
@@ -28,7 +28,7 @@ fun PageEntity.mapToDomain(postEntities: List<PostEntity>): Page =
     Page(
         after = after?.ifBlank { throw IllegalArgumentException() },
         before = before?.ifBlank { throw IllegalArgumentException() },
-        post = postEntities.map { it.mapToDomain() }
+        postList = postEntities.map { it.mapToDomain() }
     )
 
 fun PostEntity.mapToDomain(): Post =
