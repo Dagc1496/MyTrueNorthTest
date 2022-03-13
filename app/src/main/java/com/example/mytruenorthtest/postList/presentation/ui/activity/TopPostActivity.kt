@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mytruenorthtest.R
 import com.example.mytruenorthtest.common.exception.NoDataRecivedException
 import com.example.mytruenorthtest.common.extension.showSnackBar
@@ -20,6 +21,7 @@ import kotlinx.coroutines.flow.collect
 class TopPostActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityTopPostBinding
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private val topViewModel: TopViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,13 +30,26 @@ class TopPostActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         lifecycleScope.launchWhenStarted {
-            topViewModel.loader.collect(){
+            topViewModel.loader.collect {
                 setLoadingState(it)
             }
         }
 
+        configSwipeRefresh()
+
         fetchTopList()
     }
+
+    private fun configSwipeRefresh() {
+        swipeRefreshLayout = binding.swipeRefreshTopPost
+
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = true
+            fetchTopList()
+            swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
 
     private fun fetchTopList() {
         topViewModel.fetchTopPage().observe(this){result ->

@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".postList.presentation.ui.activity.TopPostActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".postList.presentation.ui.activity.TopPostActivity">
+    android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_topPost"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh_top_post"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:listitem="@layout/post_item"
-        android:layout_margin="@dimen/simple_20dp"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_topPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:listitem="@layout/post_item"
+            android:layout_margin="@dimen/simple_20dp"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
         android:id="@+id/progressBar_loader"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        android:layout_gravity="center"/>
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="visible"/>
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</RelativeLayout>
