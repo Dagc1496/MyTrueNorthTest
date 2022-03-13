@@ -5,12 +5,12 @@ import com.example.mytruenorthtest.postList.data.remote.dto.TopResponse
 import retrofit2.http.Header
 import retrofit2.http.POST
 
-interface PostsApiClient {
+interface TopApiClient {
 
     @POST("/top.json")
     suspend fun fetchTop(): TopResponse
 
     @POST("/top.json")
-    suspend fun fetchTopNextPage(@Header("after")after: String): TopResponse
+    suspend fun fetchTopNextPage(@Header("after")after: String? = null): TopResponse
 
 }

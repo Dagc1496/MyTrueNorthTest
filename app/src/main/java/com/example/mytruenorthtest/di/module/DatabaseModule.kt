@@ -20,5 +20,8 @@ object DatabaseModule {
         Room.databaseBuilder(context, TopDatabase::class.java, TOP_DATABASE_NAME).build()
 
     @Provides
-    fun provideUrlShortenedDao(database: TopDatabase) = database.getTopDao()
+    fun providePageDao(database: TopDatabase) = database.getPageDao()
+
+    @Provides
+    fun providePostDao(database: TopDatabase) = database.getPostDao()
 }

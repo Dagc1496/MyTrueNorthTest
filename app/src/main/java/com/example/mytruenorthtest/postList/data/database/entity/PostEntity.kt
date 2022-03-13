@@ -1,22 +1,30 @@
 package com.example.mytruenorthtest.postList.data.database.entity
 
 import androidx.room.ColumnInfo
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+@Entity(tableName = "post_table")
 data class PostEntity(
     @PrimaryKey
     @ColumnInfo(name = "title")
-    val title: String?,
+    var title: String = "",
+
+    @ColumnInfo(name= "page_id")
+    var pageId: Long = 0,
 
     @ColumnInfo(name = "author_fullname")
-    val author: String?,
+    var author: String? = "",
 
     @ColumnInfo(name = "created")
-    val created: Double?,
+    var created: Double? = 0.0,
 
     @ColumnInfo(name = "thumbnail")
-    val thumbnail: String?,
+    var thumbnail: String? = "",
 
     @ColumnInfo(name = "num_comments")
-    val numberComments: Int?
+    var numberComments: Int? = 0,
+
+    @ColumnInfo(name = "new")
+    var new: Boolean? = true
 )

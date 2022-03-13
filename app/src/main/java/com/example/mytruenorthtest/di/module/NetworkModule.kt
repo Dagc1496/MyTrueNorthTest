@@ -1,7 +1,7 @@
 package com.example.mytruenorthtest.di.module
 
 import com.example.mytruenorthtest.BuildConfig
-import com.example.mytruenorthtest.postList.data.remote.network.PostsApiClient
+import com.example.mytruenorthtest.postList.data.remote.network.TopApiClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +18,8 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideUrlShortenerApiClient(retrofit: Retrofit): PostsApiClient {
-        return retrofit.create(PostsApiClient::class.java)
+    fun provideUrlShortenerApiClient(retrofit: Retrofit): TopApiClient {
+        return retrofit.create(TopApiClient::class.java)
     }
 
     @Singleton
