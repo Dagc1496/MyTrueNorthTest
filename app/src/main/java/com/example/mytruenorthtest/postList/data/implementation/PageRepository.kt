@@ -26,6 +26,7 @@ class PageRepository @Inject constructor(
         val postEntities:List<PostEntity> = proccessPostResponse(response.top.postList)
         pageDao.insertPage(pageEntity)
         postEntities.forEach { postDao.insertPost(it) }
+
         return pageEntity.mapToDomain(postEntities)
     }
 

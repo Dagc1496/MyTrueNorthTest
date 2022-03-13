@@ -33,7 +33,7 @@ fun PageEntity.mapToDomain(postEntities: List<PostEntity>): Page =
 
 fun PostEntity.mapToDomain(): Post =
     Post(
-        title = title ?: throw NoDataRecivedException(),
+        title = title,
         author = author ?: throw NoDataRecivedException(),
         created = created ?: throw NoDataRecivedException(),
         thumbnail = thumbnail ?: throw NoDataRecivedException(),
