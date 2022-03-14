@@ -1,86 +1,75 @@
 package com.example.mytruenorthtest.postList.presentation.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mytruenorthtest.R
 import com.example.mytruenorthtest.common.exception.NoDataRecivedException
-import com.example.mytruenorthtest.common.extension.showSnackBar
 import com.example.mytruenorthtest.databinding.ActivityTopPostBinding
-import com.example.mytruenorthtest.postList.domain.model.Page
 import com.example.mytruenorthtest.postList.presentation.ui.adapter.TopAdapter
 import com.example.mytruenorthtest.postList.presentation.viewModel.TopViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TopPostActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityTopPostBinding
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private val topViewModel: TopViewModel by viewModels()
+
+    @Inject
+    lateinit var topAdapter: TopAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTopPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        lifecycleScope.launchWhenStarted {
-            topViewModel.loader.collect {
-                setLoadingState(it)
-            }
-        }
-
-        configSwipeRefresh()
-
+        configLoadStates()
+        configRecyclerView()
+        configAdapter()
         fetchTopList()
     }
 
-    private fun configSwipeRefresh() {
-        swipeRefreshLayout = binding.swipeRefreshTopPost
-
-        swipeRefreshLayout.setOnRefreshListener {
-            swipeRefreshLayout.isRefreshing = true
-            fetchTopList()
-            swipeRefreshLayout.isRefreshing = false
-        }
-    }
-
-
-    private fun fetchTopList() {
-        topViewModel.fetchTopPage().observe(this){result ->
-            result.fold(
-                onSuccess = {   page ->
-                    setupList(page)
-                },
-                onFailure = {
-                    showSnackBar(binding.root ,getErrorMessage(it))
-                }
-            )
-        }
-    }
-
-    private fun getErrorMessage(exception: Throwable) : String {
-        if(exception is NoDataRecivedException){
-            return resources.getString(R.string.unexpected_error)
-        }
-        else{
-            return resources.getString(R.string.sorry_we_have_problems)
-        }
-    }
-
-    private fun setupList(page: Page) {
-        with(binding.recyclerViewTopPost){
+    private fun configRecyclerView() {
+        binding.recyclerViewTopPost.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = TopAdapter(page.postList)
+            adapter = topAdapter
         }
     }
 
-    private fun setLoadingState(isLoading: Boolean) {
+    private fun configAdapter() {
+        lifecycleScope.launchWhenStarted {
+            with(topAdapter){
+
+                loadStateFlow.collectLatest {
+                    setLoadState(it.source.refresh is LoadState.Loading)
+                }
+            }
+        }
+    }
+
+    private fun fetchTopList(){
+        lifecycleScope.launchWhenStarted {
+            topViewModel.fetchTopPage().collectLatest {
+                topAdapter.submitData(it)
+            }
+        }
+    }
+
+    private fun configLoadStates(){
+        binding.swipeRefreshTopPost.setOnRefreshListener {
+            fetchTopList()
+            binding.swipeRefreshTopPost.isRefreshing = false
+        }
+    }
+
+    private fun setLoadState(isLoading: Boolean){
         binding.progressBarLoader.isVisible = isLoading
         binding.recyclerViewTopPost.isVisible = !isLoading
     }

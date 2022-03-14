@@ -2,14 +2,14 @@ package com.example.mytruenorthtest.postList.presentation.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.paging.PagingDataAdapter
 import com.example.mytruenorthtest.databinding.PostItemBinding
 import com.example.mytruenorthtest.postList.domain.model.Post
 import com.example.mytruenorthtest.postList.presentation.ui.viewHolder.PostViewHolder
+import com.example.mytruenorthtest.postList.presentation.utils.PostComparator
+import javax.inject.Inject
 
-class TopAdapter(
-    private val postList : List<Post>
-) : RecyclerView.Adapter<PostViewHolder>(){
+class TopAdapter @Inject constructor() : PagingDataAdapter<Post, PostViewHolder>(PostComparator){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder(PostItemBinding.inflate(LayoutInflater.from(parent.context),
@@ -17,10 +17,6 @@ class TopAdapter(
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val post = postList[position]
-
-        holder.onBind(post)
+        getItem(position)?.let { holder.onBind(it) }
     }
-
-    override fun getItemCount(): Int = postList.size
 }
