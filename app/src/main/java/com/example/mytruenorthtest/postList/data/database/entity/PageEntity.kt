@@ -6,13 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "page_table")
 data class PageEntity(
+    @PrimaryKey
     @ColumnInfo(name = "after_post")
-    var after: String? = "",
+    var after: String = "",
 
     @ColumnInfo(name = "before_post")
     var before: String? = "",
-){
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "page_id")
-    var pageId: Long = 0
-}
+)

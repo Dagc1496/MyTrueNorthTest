@@ -7,8 +7,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mytruenorthtest.R
-import com.example.mytruenorthtest.common.exception.NoDataRecivedException
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.mytruenorthtest.databinding.ActivityTopPostBinding
 import com.example.mytruenorthtest.postList.presentation.ui.adapter.TopAdapter
 import com.example.mytruenorthtest.postList.presentation.viewModel.TopViewModel
@@ -38,7 +37,7 @@ class TopPostActivity : AppCompatActivity() {
 
     private fun configRecyclerView() {
         binding.recyclerViewTopPost.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
             adapter = topAdapter
         }
     }

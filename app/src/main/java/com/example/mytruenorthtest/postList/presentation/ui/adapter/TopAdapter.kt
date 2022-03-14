@@ -13,7 +13,7 @@ class TopAdapter @Inject constructor() : PagingDataAdapter<Post, PostViewHolder>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder(PostItemBinding.inflate(LayoutInflater.from(parent.context),
-                              parent, false))
+                              parent, false), parent.context)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {

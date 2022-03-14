@@ -1,17 +1,22 @@
 package com.example.mytruenorthtest.postList.presentation.ui.viewHolder
 
+import android.content.Context
+import android.webkit.URLUtil
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mytruenorthtest.common.extension.setImageFromUrl
 import com.example.mytruenorthtest.databinding.PostItemBinding
 import com.example.mytruenorthtest.postList.domain.model.Post
 
-class PostViewHolder(binding: PostItemBinding) : RecyclerView.ViewHolder(binding.root){
+class PostViewHolder(binding: PostItemBinding, val context: Context) : RecyclerView.ViewHolder(binding.root){
 
     val textViewPostTitle : TextView = binding.textViewPostTitle
     val textViewPostAuthor : TextView = binding.textViewPostAuthor
     val textViewPostComments : TextView = binding.textViewPostCommentsAmount
     val textViewPostCreated : TextView = binding.textViewPostCreated
     val textViewPostNew : TextView = binding.textViewPostNew
+    val imageViewPostThumbnail : ImageView = binding.imageViewPostThumbnail
 
     fun onBind(post: Post){
         textViewPostTitle.text = post.title
@@ -19,5 +24,8 @@ class PostViewHolder(binding: PostItemBinding) : RecyclerView.ViewHolder(binding
         textViewPostComments.text = post.numberComments.toString()
         textViewPostCreated.text = post.created.toString()
         textViewPostNew.text = post.new.toString()
+        if(URLUtil.isValidUrl(post.thumbnail)){
+            imageViewPostThumbnail.setImageFromUrl(post.thumbnail, context)
+        }
     }
 }
