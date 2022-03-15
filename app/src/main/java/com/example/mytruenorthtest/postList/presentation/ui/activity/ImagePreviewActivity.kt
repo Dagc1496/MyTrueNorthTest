@@ -9,6 +9,7 @@ import com.example.mytruenorthtest.common.extension.setImageFromUrl
 import com.example.mytruenorthtest.common.extension.showSnackBar
 import com.example.mytruenorthtest.common.helper.SaveImageHelper
 import com.example.mytruenorthtest.databinding.ActivityImagePreviewBinding
+import com.example.mytruenorthtest.postList.presentation.constant.ImageConstants
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,7 +36,7 @@ class ImagePreviewActivity: AppCompatActivity() {
     }
 
     private fun getThumbnailExtra() {
-        thumbnailUrl = intent.getStringExtra("thumbnail").toString()
+        thumbnailUrl = intent.getStringExtra(ImageConstants.thumbnailKey).toString()
     }
 
     private fun saveImage() {

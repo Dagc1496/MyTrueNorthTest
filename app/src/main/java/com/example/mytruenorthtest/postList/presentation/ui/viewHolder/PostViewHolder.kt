@@ -30,10 +30,11 @@ class PostViewHolder(binding: PostItemBinding, val context: Context) : RecyclerV
         setImageThumbnail(post)
         setPostState(post)
 
-        itemView.setOnClickListener {
+        textViewPostTitle.setOnClickListener {
             post.new = false
             itemClick(absoluteAdapterPosition, post)
         }
+
         imageViewPostThumbnail.setOnClickListener { imageClick(post.thumbnail) }
     }
 
