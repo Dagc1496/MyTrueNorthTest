@@ -11,7 +11,7 @@ technical entry test for TrueNorth, this is an android mobile application build 
 * ViewBinding
 * Code static analysis with SonarLint
 
-##fulfilled Features
+## fulfilled Features
 
 * Pull to Refresh
 * Pagination support
