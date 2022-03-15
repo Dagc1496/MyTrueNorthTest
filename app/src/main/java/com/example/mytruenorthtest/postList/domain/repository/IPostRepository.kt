@@ -6,4 +6,5 @@ interface IPostRepository {
 
     suspend fun updatePostState(post: Post)
 
+    suspend fun deletePost(title: String)
 }

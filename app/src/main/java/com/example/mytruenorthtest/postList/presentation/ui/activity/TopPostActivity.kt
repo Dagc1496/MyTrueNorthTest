@@ -8,11 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.mytruenorthtest.databinding.ActivityTopPostBinding
 import com.example.mytruenorthtest.postList.domain.model.Post
+import com.example.mytruenorthtest.postList.presentation.helper.SwipeToDeleteCallback
 import com.example.mytruenorthtest.postList.presentation.ui.adapter.TopAdapter
+import com.example.mytruenorthtest.postList.presentation.viewModel.DeletePostViewModel
 import com.example.mytruenorthtest.postList.presentation.viewModel.TopViewModel
 import com.example.mytruenorthtest.postList.presentation.viewModel.UpdatePostStateViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +28,7 @@ class TopPostActivity : AppCompatActivity() {
     private lateinit var topAdapter: TopAdapter
     private val topViewModel: TopViewModel by viewModels()
     private val updatePostStateViewModel: UpdatePostStateViewModel by viewModels()
+    private val deletPostViewModel : DeletePostViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +38,7 @@ class TopPostActivity : AppCompatActivity() {
         configLoadStates()
         configAdapter()
         configRecyclerView()
+        configItemTouchHelper()
         fetchTopList()
     }
 
@@ -49,6 +54,8 @@ class TopPostActivity : AppCompatActivity() {
             changePostState(position, post)
         },{thumbnail ->
             showImagePreview(thumbnail)
+        },{positionToDelete, itemTitle ->
+            delteItem(positionToDelete, itemTitle)
         })
         lifecycleScope.launchWhenStarted {
             with(topAdapter){
@@ -66,6 +73,11 @@ class TopPostActivity : AppCompatActivity() {
             layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
             adapter = topAdapter
         }
+    }
+
+    private fun configItemTouchHelper() {
+        val itemTouchHelper = ItemTouchHelper( SwipeToDeleteCallback(topAdapter) )
+        itemTouchHelper.attachToRecyclerView(binding.recyclerViewTopPost)
     }
 
     private fun fetchTopList(){
@@ -95,6 +107,11 @@ class TopPostActivity : AppCompatActivity() {
     private fun changePostState(position:Int, post: Post){
         updatePostStateViewModel.updatePostState(post)
         topAdapter.notifyItemChanged(position)
+    }
+
+    private fun delteItem(itemPosition: Int, itemTitle: String){
+        deletPostViewModel.deletePost(itemTitle)
+        topAdapter.notifyItemRemoved(itemPosition)
     }
 
     private fun showImagePreview(thumbnail: String){

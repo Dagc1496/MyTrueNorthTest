@@ -13,4 +13,8 @@ class PostRepository @Inject constructor(
     override suspend fun updatePostState(post: Post){
         postDao.updatePostState(post.mapToEntity())
     }
+
+    override suspend fun deletePost(title: String) {
+        postDao.deletePost(title)
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.mytruenorthtest.postList.domain.useCase
 
-import com.example.mytruenorthtest.common.exception.NoDataRecivedException
 import com.example.mytruenorthtest.postList.domain.model.Post
 import com.example.mytruenorthtest.postList.domain.repository.IPostRepository
 import javax.inject.Inject
