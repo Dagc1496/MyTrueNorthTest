@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.provider.MediaStore
 import com.example.mytruenorthtest.common.exception.SaveImageException
+import com.example.mytruenorthtest.postList.presentation.constant.ImageConstants
 import java.io.OutputStream
 import java.lang.Exception
 
@@ -17,8 +18,8 @@ class SaveImageHelper {
         val contentResolver = context.contentResolver
         val contentValues = ContentValues()
         contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, imageName)
-        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, "DCIM/" + "True North")
+        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, ImageConstants.imageMimeType)
+        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, ImageConstants.directoryPath)
 
         try{
             val imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
@@ -27,6 +28,9 @@ class SaveImageHelper {
             saved = imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outPutStream)
             outPutStream?.flush()
         }catch (exception: Exception){
+            /*
+                Send analytics to give user support
+             */
             saved = false
         }
 
