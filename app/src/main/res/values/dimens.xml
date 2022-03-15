@@ -7,6 +7,7 @@
     <dimen name="simple_8dp">8dp</dimen>
     <dimen name="simple_10dp">10dp</dimen>
     <dimen name="simple_20dp">20dp</dimen>
+    <dimen name="simple_40dp">40dp</dimen>
 
     <!-- Scalable Pixels-->
     <dimen name="simple_7sp">7sp</dimen>

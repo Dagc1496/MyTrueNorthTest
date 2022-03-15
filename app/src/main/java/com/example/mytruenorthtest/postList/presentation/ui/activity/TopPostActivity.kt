@@ -2,6 +2,7 @@ package com.example.mytruenorthtest.postList.presentation.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -80,8 +81,15 @@ class TopPostActivity : AppCompatActivity() {
     }
 
     private fun setErrorState(error: Boolean) {
-        binding.progressBarLoader.isVisible = !error
-        binding.recyclerViewTopPost.isVisible = !error
+        if(error){
+            binding.editTextErrorMessage.visibility = View.VISIBLE
+            binding.progressBarLoader.visibility = View.GONE
+            binding.swipeRefreshTopPost.visibility = View.GONE
+        }else{
+            binding.editTextErrorMessage.visibility = View.GONE
+            binding.progressBarLoader.visibility = View.VISIBLE
+            binding.swipeRefreshTopPost.visibility = View.VISIBLE
+        }
     }
 
     private fun changePostState(post: Post){
@@ -92,7 +100,6 @@ class TopPostActivity : AppCompatActivity() {
         val intent = Intent(this, ImagePreviewActivity::class.java).apply{
             putExtra("thumbnail", thumbnail)
         }
-
         startActivity(intent)
     }
 }

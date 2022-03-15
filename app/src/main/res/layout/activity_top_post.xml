@@ -30,4 +30,15 @@
         android:layout_centerHorizontal="true"
         android:visibility="invisible"/>
 
+    <TextView
+        android:id="@+id/editText_error_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/simple_40dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:text="@string/unexpected_error"
+        android:textSize="@dimen/simple_16sp"/>
+
 </RelativeLayout>
