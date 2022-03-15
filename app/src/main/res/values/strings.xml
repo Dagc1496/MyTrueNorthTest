@@ -2,4 +2,7 @@
     <string name="app_name">MyTrueNorthTest</string>
     <string name="new_post">¡New!</string>
     <string name="old_post">Old</string>
+    <string name="save">Guardar</string>
+    <string name="image_saved">Tu imagen Ha sido Guardada</string>
+    <string name="error_saving_image">Lo sentimos algo salio mal</string>
 </resources>
