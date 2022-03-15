@@ -10,7 +10,7 @@ class PostRepository @Inject constructor(
     private val postDao: PostDao
 ) : IPostRepository {
 
-    override suspend fun updatePostState(post: Post) {
+    override suspend fun updatePostState(post: Post){
         postDao.updatePostState(post.mapToEntity())
     }
 }

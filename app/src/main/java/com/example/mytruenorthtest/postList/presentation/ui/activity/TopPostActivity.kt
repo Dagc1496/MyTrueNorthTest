@@ -10,11 +10,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.mytruenorthtest.common.extension.showSnackBar
 import com.example.mytruenorthtest.databinding.ActivityTopPostBinding
 import com.example.mytruenorthtest.postList.domain.model.Post
 import com.example.mytruenorthtest.postList.presentation.ui.adapter.TopAdapter
 import com.example.mytruenorthtest.postList.presentation.viewModel.TopViewModel
+import com.example.mytruenorthtest.postList.presentation.viewModel.UpdatePostStateViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -24,6 +24,7 @@ class TopPostActivity : AppCompatActivity() {
     private lateinit var binding : ActivityTopPostBinding
     private lateinit var topAdapter: TopAdapter
     private val topViewModel: TopViewModel by viewModels()
+    private val updatePostStateViewModel: UpdatePostStateViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +39,7 @@ class TopPostActivity : AppCompatActivity() {
 
     private fun configLoadStates(){
         binding.swipeRefreshTopPost.setOnRefreshListener {
-            fetchTopList()
+            topAdapter.refresh()
             binding.swipeRefreshTopPost.isRefreshing = false
         }
     }
@@ -83,17 +84,17 @@ class TopPostActivity : AppCompatActivity() {
     private fun setErrorState(error: Boolean) {
         if(error){
             binding.editTextErrorMessage.visibility = View.VISIBLE
-            binding.progressBarLoader.visibility = View.GONE
+            binding.progressBarLoader.isVisible = false
             binding.swipeRefreshTopPost.visibility = View.GONE
         }else{
             binding.editTextErrorMessage.visibility = View.GONE
-            binding.progressBarLoader.visibility = View.VISIBLE
             binding.swipeRefreshTopPost.visibility = View.VISIBLE
         }
     }
 
     private fun changePostState(post: Post){
-        showSnackBar(binding.root, post.author)
+        updatePostStateViewModel.updatePostState(post)
+        topAdapter.notifyDataSetChanged()
     }
 
     private fun showImagePreview(thumbnail: String){

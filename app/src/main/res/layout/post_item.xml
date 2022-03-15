@@ -116,7 +116,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:textStyle="italic"
-                android:textColor="@color/green"
                 android:textSize="@dimen/simple_10sp"
                 android:gravity="end"
                 android:layout_gravity="end"

@@ -30,7 +30,10 @@ class PostViewHolder(binding: PostItemBinding, val context: Context) : RecyclerV
         setImageThumbnail(post)
         setPostState(post)
 
-        itemView.setOnClickListener { itemClick(post) }
+        itemView.setOnClickListener {
+            post.new = false
+            itemClick(post)
+        }
         imageViewPostThumbnail.setOnClickListener { imageClick(post.thumbnail) }
     }
 
@@ -41,9 +44,10 @@ class PostViewHolder(binding: PostItemBinding, val context: Context) : RecyclerV
     private fun setPostState(post : Post){
         if (post.new){
             textViewPostNew.text = context.getString(R.string.new_post)
+            textViewPostNew.setTextColor(ContextCompat.getColor(context, R.color.green))
         }else{
             textViewPostNew.text = context.getString(R.string.old_post)
-            textViewPostNew.setTextColor(ContextCompat.getColor(context, R.color.red))
+            textViewPostNew.setTextColor(ContextCompat.getColor(context, R.color.gray))
         }
     }
 }

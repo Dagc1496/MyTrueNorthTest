@@ -14,9 +14,8 @@ fun ImageView.setImageFromUrl(url: String, context: Context){
         Glide.with(context).load(url)
             .apply(
                 RequestOptions()
-                    .fitCenter()
                     .format(DecodeFormat.PREFER_ARGB_8888)
-                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .override(Target.SIZE_ORIGINAL)
             )
             .fitCenter()
             .into(this)
