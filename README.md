@@ -11,3 +11,10 @@ technical entry test for TrueNorth, this is an android mobile application build 
 * ViewBinding
 * Code static analysis with SonarLint
 
+##fulfilled Features
+
+* Pull to Refresh
+* Pagination support
+* Saving pictures in the picture gallery
+* Indicator of unread/read post (updated status, after post it’s selected)
+* Dismiss Post Button (remove the cell from list. Animations required) Note: Replaced button fer Swipe gesture
