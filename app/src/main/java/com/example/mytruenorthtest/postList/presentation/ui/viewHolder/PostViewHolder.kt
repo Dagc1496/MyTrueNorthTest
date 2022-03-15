@@ -20,7 +20,7 @@ class PostViewHolder(binding: PostItemBinding, val context: Context) : RecyclerV
     val imageViewPostThumbnail : ImageView = binding.imageViewPostThumbnail
 
     fun onBind(post: Post,
-               itemClick: (Post) -> Unit,
+               itemClick: (Int, Post) -> Unit,
                imageClick: (String) -> Unit){
         textViewPostTitle.text = post.title
         textViewPostAuthor.text = post.author
@@ -32,7 +32,7 @@ class PostViewHolder(binding: PostItemBinding, val context: Context) : RecyclerV
 
         itemView.setOnClickListener {
             post.new = false
-            itemClick(post)
+            itemClick(absoluteAdapterPosition, post)
         }
         imageViewPostThumbnail.setOnClickListener { imageClick(post.thumbnail) }
     }

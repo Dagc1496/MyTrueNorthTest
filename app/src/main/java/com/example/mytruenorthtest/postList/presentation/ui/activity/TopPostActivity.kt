@@ -45,8 +45,8 @@ class TopPostActivity : AppCompatActivity() {
     }
 
     private fun configAdapter() {
-        topAdapter = TopAdapter({post ->
-            changePostState(post)
+        topAdapter = TopAdapter({position, post ->
+            changePostState(position, post)
         },{thumbnail ->
             showImagePreview(thumbnail)
         })
@@ -92,9 +92,9 @@ class TopPostActivity : AppCompatActivity() {
         }
     }
 
-    private fun changePostState(post: Post){
+    private fun changePostState(position:Int, post: Post){
         updatePostStateViewModel.updatePostState(post)
-        topAdapter.notifyDataSetChanged()
+        topAdapter.notifyItemChanged(position)
     }
 
     private fun showImagePreview(thumbnail: String){

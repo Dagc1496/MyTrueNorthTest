@@ -8,7 +8,7 @@ import com.example.mytruenorthtest.postList.domain.model.Post
 import com.example.mytruenorthtest.postList.presentation.ui.viewHolder.PostViewHolder
 import com.example.mytruenorthtest.postList.presentation.utils.PostComparator
 
-class TopAdapter(private val itemListener: (Post) -> Unit,
+class TopAdapter(private val itemListener: (Int, Post) -> Unit,
                  private val imageListener: (String) -> Unit
 ) : PagingDataAdapter<Post, PostViewHolder>(PostComparator){
 
