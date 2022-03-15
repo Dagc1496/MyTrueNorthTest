@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyTrueNorthTest</string>
+    <string name="new_post">¡New!</string>
+    <string name="old_post">Old</string>
 </resources>
